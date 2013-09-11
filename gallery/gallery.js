@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 /* TOOLS */
 
 function addClass(node, className) {
@@ -93,6 +93,18 @@ function Slider(sliderNode) {
 	this.ul = sliderNode.querySelector('.previews');
 	this.imgs = this.ul.querySelectorAll('li');
 	this.bigImg = sliderNode.querySelector('.big-picture img');
+	this.timer = undefined;
+}
+
+Slider.prototype.setTimer = function() {
+	var obj = {
+		func: this.next
+	}
+	var selfObj = this;
+
+	this.timer = setInterval(function() {
+		obj.func.call(selfObj)
+	}, 5000);
 }
 // Метод переключения фреймов карусели вперед
 Slider.prototype.nextFrame = function(imageCount) {
@@ -174,7 +186,9 @@ var slidersNode = document.querySelectorAll('.gal');
 var sliders = [];
 // Создание коллекции обьектов типа Слайдер
 for (var i = 0; i < slidersNode.length; i += 1) {
-	sliders.push(new Slider(slidersNode[i]));
+	var sliderObj = new Slider(slidersNode[i]);
+	sliderObj.setTimer();
+	sliders.push(sliderObj);
 }
 var currentSlider = sliders[0];
 var autoNext;
@@ -192,7 +206,7 @@ var clicked = function(event) {
 			}
 		}
 	}
-// Обработка события нажатия на стрелки карусели
+	// Обработка события нажатия на стрелки карусели
 	if (hasClass(event.target, 'arrow')) {
 		if (hasClass(event.target, 'left-arrow')) {
 			currentSlider.backFrame(4);
@@ -202,29 +216,16 @@ var clicked = function(event) {
 		}
 
 	}
-// Обработка события нажатия на превью и остановка таймера
+	// Обработка события нажатия на превью и остановка таймера
 	if (event.target.hasAttribute('bigPic')) {
 		currentSlider.show(event.target);
-		clearTimeout(autoNext);
+		clearInterval(currentSlider.timer);
+		//clearTimeout(autoNext);
 	}
 
 }
 
 bind(document, 'click', clicked);
-
-// Запуск таймера смены изображений при загрузке страницы
-var winLoad = function(event) {
-	autoNext = setTimeout(function run() {
-		for (var i = 0; i < sliders.length; i += 1) {
-			var slider = sliders[i];
-			slider.next();
-		}
-		autoNext = setTimeout(run, 5000);
-	}, 5000);
-
-}
-
-bind(window, 'load', winLoad);
 
 // Установка текущего слайдера при наведении
 var mouseOvered = function(event) {
