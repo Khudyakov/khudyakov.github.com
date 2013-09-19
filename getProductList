@@ -1,0 +1,38 @@
+'use strict';
+
+/* ##################################
+
+Ограничения реализации:
+1) Код js завязан на разметке страницы
+
+Недостатки реализации:
+1) При несовпадении разметки внутри оберток productWrapers возможна некорректная работа кода
+
+#####################################*/
+
+var getProductList = function() {
+	var productList = [];
+	var productWrapers = document.querySelectorAll('.gtile-i-wrap');
+
+	function getProductObject(productWraper) {
+		var productObject = {};
+		var nameNode = productWraper.querySelector('.gtile-i-title a');
+		var priceUaNode = productWraper.querySelector('.g-price-uah');
+		var priceUsdNode = productWraper.querySelector('.g-price-usd');
+
+		productObject.name = nameNode.innerHTML.match(/\S+/g).join(' ');
+		productObject.url = nameNode.href;
+		productObject.usd = parseFloat(priceUsdNode.innerHTML.match(/\d+(.\d+)?/g)[0]).toFixed(2);
+		productObject.ua = parseFloat(priceUaNode.innerHTML.match(/(\d+(.\d+)?)/g)[0]).toFixed(2);
+		productObject.memory = nameNode.innerHTML.match(/(?:\s)\d+(\s+)?GB(?:\s)/g)[0].replace(/\s/g,'');
+
+		return productObject;
+	}
+
+	for (var i = 0; i < productWrapers.length; i += 1) {
+		productList.push(getProductObject(productWrapers[i]));
+	}
+	return productList;
+}
+
+getProductList();
