@@ -3,10 +3,10 @@
 
 Недостатки реализации:
 1) Код работает только со страниц домена rozetka.com.ua
-2) Зависимость от API сервера для загрузки дополнительных страниц
+2) Сбой в загрузке цепочки запросов при ошибке одного из запросов
 
 #####################################*/
-(function() {
+(function(callback) {
 	/* TOOLBOX */
 
 	function getXmlHttp() {
@@ -105,8 +105,7 @@
 					generateProductList(body);
 					if (currentPage === pageCount) {
 					// Осуществление действий по истечении загрузки и обработки последней страницы товаров
-						console.log(productList);
-						console.log('Общее количество товаров: '+productList.length);
+						callback(productList);
 					}
 					getOtherPages();
 				}
@@ -114,4 +113,9 @@
 		}
 		xmlhttp.send(null);
 	}
-})();
+})(showProductList);
+
+function showProductList(data) {
+	console.log(data);
+	console.log('Количество товаров: '+data.length)
+}
