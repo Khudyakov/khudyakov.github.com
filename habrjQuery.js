@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 $((function() {
 	// Убрать блок рекламы в правой колонке
@@ -9,12 +9,16 @@ $((function() {
 	$('.fast_navigator').remove();
 
 	// Разделить прямой эфир на 2 отдельных блока (посты, qa) 
+	var posts = $('.live_broadcast');
+	var title = posts.find('.title').get(0).childNodes[0].textContent;
 	var qa = $(document.createElement('div')).addClass('block').addClass('live_broadcast');
-	qa.append($('.live_broadcast .title').clone());
-	qa.find('.dotted.tab').eq(0).removeClass('open');
-	qa.find('.dotted.tab').eq(1).addClass('open');
-	qa.append( $('.qa_activity').removeClass('hidden').show() );
-	$('.live_broadcast').after(qa);
+	qa.append(posts.find('.title').clone());
+
+	qa.find('.title').text(title + '- ' + qa.find('.dotted.tab').eq(1).text());
+	posts.find('.title').text(title + '- ' + posts.find('.dotted.tab').eq(0).text());
+
+	qa.append(posts.find('.qa_activity').show());
+	posts.after(qa);
 
 	// Все блоки сделать collapsible
 	$('.sidebar_right div .title').each(function() {
@@ -48,6 +52,7 @@ $((function() {
 			$(this).remove();
 		}
 	});
+	$('.flag').remove();
 
 	//Подтянуть на страницу все посты в том-же формате с последующих страниц
 	var pageNumber = parseInt($('#nav-pages > li:last-child').text());
@@ -75,6 +80,7 @@ $((function() {
 					$(this).remove();
 				}
 			});
+			$(body).find('.flag').remove();
 
 			$(body).find('.posts.shortcuts_items > div').appendTo($('.posts.shortcuts_items'));
 			if (currentPage < pageNumber + 1) {
