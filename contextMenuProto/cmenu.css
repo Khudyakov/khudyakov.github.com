@@ -1,0 +1,39 @@
+.menu {
+	display: block;
+	background-color:#F1F1F1;
+	width:150px;
+	list-style:none;
+	position:absolute;
+	padding: 0;
+	margin:0;
+    -moz-box-shadow: 5px 5px 10px rgba(0,0,0,0.5); /* Для Firefox */
+    -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5); /* Параметры тени */
+}
+
+.menu.hide {
+	display: none;
+}
+
+.menu li {
+	cursor:pointer;
+	border-bottom:1px solid grey;
+	padding: 4px 10px;
+}
+
+.menu li:hover{
+	background-color: #ABA1A1;
+}
+
+.submenu {
+	position: relative;
+	background:url(mark.png) #E9E9E9 no-repeat;
+	background-position: top 10px right 3px;
+}
+.submenu ul {
+position: absolute;
+top:0;
+left: 150px;
+}
+
+
