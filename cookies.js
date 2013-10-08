@@ -133,11 +133,13 @@
 		linkUrl: [],
 		count: []
 	};
+	var OVERRED_TIME = 2000;
 
 	data = getCookieData(document.cookie, data);
 	// делегирование наведения мыши на ссылку
 	var mouseOverHandler = function(event) {
 		var targetNode = event.target;
+		var overTime = (new Date()).getTime();
 		var link = closest(targetNode, function(node) {
 			return node.nodeName === 'A';
 		});
@@ -169,7 +171,20 @@
 			});
 			// по убытию мыши с ссылки просходит запись в куки
 			var outWrapper = bind(targetNode, 'mouseout', function(event) {
-				setCookieData(data);
+				var outTime = (new Date()).getTime();
+				if ((outTime - overTime) > OVERRED_TIME) {
+					setCookieData(data);
+				} else {
+					var position = data.linkUrl.indexOf(linkUrl);
+					if (data.count[position] === 1) {
+						data.names.splice(position, 1);
+						data.pageUrl.splice(position, 1);
+						data.linkUrl.splice(position, 1);
+						data.count.splice(position, 1);
+					} else {
+						data.count[position] -= 1;
+					}
+				}
 				unbind(targetNode, 'mouseout', outWrapper);
 			});
 		}
