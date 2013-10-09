@@ -56,14 +56,6 @@
 		}
 	}
 
-	function preventDefault(event) {
-		if (event.preventDefault) {
-			event.preventDefault();
-		} else {
-			event.returnValue = false;
-		}
-	}
-
 	function closest(node, callback) {
 		var nextParent = node;
 
@@ -78,11 +70,14 @@
 	function getCookieData(cookieString, data) {
 		var nameExp = /link\d+(?=\=)/g;
 		var urlsExp = /(?:link)(.+?)(?=;|$)/g;
+		var urls;
+		var urlStr;
+		var urlArr;
 		if (cookieString.match(nameExp) !== null) {
-			var urls = cookieString.match(urlsExp);
+			urls = cookieString.match(urlsExp);
 			for (var i = 0; i < urls.length; i += 1) {
-				var urlStr = urls[i].replace(/link\d+\=/g, '');
-				var urlArr = urlStr.split('%3D');
+				urlStr = urls[i].replace(/link\d+\=/g, '');
+				urlArr = urlStr.split('%3D');
 				data.pageUrl[i] = urlArr[0];
 				data.linkUrl[i] = urlArr[1];
 				data.count[i] = parseInt(urlArr[2]);
@@ -143,10 +138,12 @@
 		var link = closest(targetNode, function(node) {
 			return node.nodeName === 'A';
 		});
-
+		var linkUrl;
+		var pageUrl;
+		var position;
 		if ((link !== null) && (link.nodeName === 'A')) {
-			var linkUrl = link.href;
-			var pageUrl = document.location.href;
+			linkUrl = link.href;
+			pageUrl = document.location.href;
 			// создание новой записи в данных или обновление старой
 			if ((data.linkUrl.indexOf(linkUrl) === -1) || (data.pageUrl.indexOf(pageUrl) === -1)) {
 				data.names.push('link' + (new Date()).getTime());
@@ -154,20 +151,18 @@
 				data.linkUrl.push(linkUrl);
 				data.count.push(1);
 			} else {
-				var position = data.linkUrl.indexOf(linkUrl);
+				position = data.linkUrl.indexOf(linkUrl);
 				data.count[position] += 1;
 			}
 			// по нажатию на ссылку кука с данными на эту ссылку удаляется и обновляются данные
 			var clickWrapper = bind(targetNode, 'click', function(event) {
-				preventDefault(event);
-				var position = data.linkUrl.indexOf(linkUrl);
+				position = data.linkUrl.indexOf(linkUrl);
 				setCookieData(data, position);
 				data.names.splice(position, 1);
 				data.pageUrl.splice(position, 1);
 				data.linkUrl.splice(position, 1);
 				data.count.splice(position, 1);
 				unbind(targetNode, 'click', clickWrapper);
-				location.href = linkUrl;
 			});
 			// по убытию мыши с ссылки просходит запись в куки
 			var outWrapper = bind(targetNode, 'mouseout', function(event) {
@@ -175,7 +170,7 @@
 				if ((outTime - overTime) > OVERRED_TIME) {
 					setCookieData(data);
 				} else {
-					var position = data.linkUrl.indexOf(linkUrl);
+					position = data.linkUrl.indexOf(linkUrl);
 					if (data.count[position] === 1) {
 						data.names.splice(position, 1);
 						data.pageUrl.splice(position, 1);
