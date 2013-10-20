@@ -1,0 +1,25 @@
+[{
+        "name": "Молоток электрический",
+        "manufacturer": "Makita",
+        "model": "HM1307CB",
+        "price": 1000,
+        "quantity": 10
+}, {
+        "name": "Перфоратор 2-х режимный",
+        "manufacturer": "Конаково",
+        "model": "П-1100",
+        "price": 97,
+        "quantity": 15
+}, {
+        "name": "Перфоратор 3-х режимный",
+        "manufacturer": "Makita",
+        "model": "HR2400",
+        "price": 224,
+        "quantity": 8
+}, {
+        "name": "Перфоратор SDS-plus",
+        "manufacturer": "Зубр",
+        "model": "ЗП-1100ЭК",
+        "price": 164,
+        "quantity": 12
+}]

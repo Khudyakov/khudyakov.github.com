@@ -1,0 +1,25 @@
+[{
+        "name": "Лобзик 'Master'",
+        "manufacturer": "Stayer",
+        "model": "2253SB",
+        "price": 3,
+        "quantity": 25
+}, {
+        "name": "Лобзик аккумуляторный",
+        "manufacturer": "Makita",
+        "model": "BJV140RFE",
+        "price": 500,
+        "quantity": 11
+}, {
+        "name": "Лобзик маятниковый",
+        "manufacturer": "Зубр",
+        "model": "B343SHE",
+        "price": 68,
+        "quantity": 15
+}, {
+        "name": "Лобзик электрический",
+        "manufacturer": "Makita",
+        "model": "4350CT",
+        "price": 181,
+        "quantity": 12
+}]

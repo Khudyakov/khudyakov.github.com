@@ -1,0 +1,25 @@
+[{
+        "name": "Пила лучковая по дереву",
+        "manufacturer": "Grinda",
+        "model": "53G53SB",
+        "price": 5,
+        "quantity": 21
+}, {
+        "name": "Пила перекидная",
+        "manufacturer": "Kraftool",
+        "model": "Slott-R",
+        "price": 10,
+        "quantity": 16
+}, {
+        "name": "Пила дисковая",
+        "manufacturer": "Bosch",
+        "model": "65GCE",
+        "price": 380,
+        "quantity": 19
+}, {
+        "name": "Пила цепная",
+        "manufacturer": "Зубр",
+        "model": "ФТ4350CT",
+        "price": 106,
+        "quantity": 11
+}]

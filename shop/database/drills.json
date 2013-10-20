@@ -1,0 +1,25 @@
+[{
+        "name": "Дрель ручная",
+        "manufacturer": "Kraftool",
+        "model": "HM2203SB",
+        "price": 9,
+        "quantity": 20
+}, {
+        "name": "Дрель 'ПРОФИ'",
+        "manufacturer": "Uragan",
+        "model": "П-1200",
+        "price": 406,
+        "quantity": 12
+}, {
+        "name": "Дрель аккумуляторная",
+        "manufacturer": "Makita",
+        "model": "BDF343SHE",
+        "price": 191,
+        "quantity": 10
+}, {
+        "name": "Дрель реверсивная",
+        "manufacturer": "Зубр",
+        "model": "БЗП",
+        "price": 31,
+        "quantity": 18
+}]
