@@ -20,13 +20,13 @@
 
 	function getCurrTabCookie(groups) {
 		var regExp = /(?:currTab\=)(.+?)(?=;|$)/g;
-		var linkHref = document.cookie.match(regExp)[0];
+		var linkHref = document.cookie.match(regExp);
 		var currTab;
 
 		if (linkHref === null) {
 			currTab = groups.eq(0);
 		} else {
-			var href = linkHref.replace(/currTab=/g, '');
+			var href = linkHref[0].replace(/currTab=/g, '');
 
 			groups.each(function() {
 				var link = $(this).find('a');
