@@ -126,22 +126,26 @@ body {
 	background: #EEEEEE;
 }
 .content {
+	position:relative;
 	margin-left: 250px;
 	margin-top: 25px;
 	margin-right: 20px;
 	margin-bottom: 20px;
 	min-height: 1000px;
 	padding: 20px;
+	padding-top: 40px;
 	border-radius: 10px;
 	border:2px solid #DDDDDD;
 	text-align: center;
 }
 
 .loader {
-	margin-top:20px;
+	position: absolute;
+	top:15px;
 	display: none;
 }
 .butn {
+	margin-left: 10px;
 	padding: 4px;
 	border: 2px solid #DDDDDD;
 	border-radius: 5px;
@@ -170,6 +174,18 @@ body {
 	border-right: 2px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 }
+
+.goods .sort {
+	cursor: pointer;
+	background: url(mark.png) no-repeat;
+	background-position: right center;
+}
+
+.goods .sort:hover {
+	background: url(mark.png) no-repeat #B6B6B6;
+	background-position: right center;
+}
+
 .goods td {
 	padding: 10px;
 	border-left: 2px solid #DDDDDD;
@@ -218,7 +234,7 @@ body {
 	margin-top: 15px;
 }
 
-.apply {
+.button {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
@@ -228,11 +244,13 @@ body {
 	text-decoration: none;
 	color: #B2B1B1;
 }
-.apply:hover {
+.button:hover {
 	background: #B2B1B1;
 	color: #FFFFFF;
 }
-
+.clear {
+	right: 150px;
+}
 .close {
 	position: absolute;
 	top:5px;
