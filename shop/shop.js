@@ -44,4 +44,5 @@ var Mediator = (function() {
 }());
 
 var navPanel = $('.catalog');
+var loader = $('.loader');
 
