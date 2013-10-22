@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 /*   ################################
 
 	Модуль работы с корзиной (мини-инфо корзины и поп-ап):
@@ -8,7 +8,7 @@
 	3) Вспомогательные функции записи и чтения куки
 
 	 ################################ */
-(function() {
+var basketModule = (function (cartMini, popup, generateContent, sortTable, Mediator) {
 
 	var mediator = new Mediator();
 	var basket = getBasketData();
@@ -31,7 +31,7 @@
 		}
 	});
 
-	clearButton.on('click',function(event) {
+	clearButton.on('click', function(event) {
 		event.preventDefault();
 		basket = [];
 		setBasketData(basket);
@@ -39,15 +39,16 @@
 		popup.removeClass('show');
 	})
 
-	mediator.subscribe('refreshData',refreshCartTab);
-	mediator.subscribe('refreshData',refreshCartInfo);
-	mediator._publish('refreshData',basket);
+	mediator.subscribe('refreshData', refreshCartTab);
+	mediator.subscribe('refreshData', refreshCartInfo);
+	mediator._publish('refreshData', basket);
 
 
 	function refreshCartTab(data) {
 		sortHeaders.off('click');
 		sortHeaders.on('click', function() {
 			var self = $(this);
+			debugger
 			sortTable(self, data, self.attr('dataType'), basketTable, mediator);
 		});
 
@@ -117,7 +118,7 @@
 		}
 
 		setBasketData(basket);
-		mediator._publish('refreshData',basket);
+		mediator._publish('refreshData', basket);
 	});
 
 	mediator.subscribe('removeInBasket', function(dataObj) {
@@ -128,7 +129,7 @@
 			basket[position]["amount"] = parseInt(basket[position]["amount"]) - parseInt(dataObj["amount"]);
 		}
 		setBasketData(basket);
-		mediator._publish('refreshData',basket);
+		mediator._publish('refreshData', basket);
 	});
 
 })(cartMini, popup, generateContent, sortTable, Mediator);

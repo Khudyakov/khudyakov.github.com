@@ -6,7 +6,7 @@
 	вызов генерирущей таблицы глобальной функции
 
 	 ################################ */
-(function() {
+var getTablesModule = (function (goodsCont, Mediator, generateContent, sortTable) {
 	var mediator = new Mediator();
 	var content = goodsCont.find('tbody');
 	var header = goodsCont.find('thead th');
@@ -14,13 +14,13 @@
 
 	mediator.subscribe('dataReady', function(data) {
 		sortHeaders.off('click');
-		sortHeaders.on('click',function(){
+		sortHeaders.on('click', function() {
 			var self = $(this);
-			sortTable(self,data,self.attr('dataType'),goodsCont,mediator);
+			sortTable(self, data, self.attr('dataType'), goodsCont, mediator);
 		});
 
 		generateContent(header, content, data, mediator);
-	
+
 	});
 
 })(goodsCont, Mediator, generateContent, sortTable);

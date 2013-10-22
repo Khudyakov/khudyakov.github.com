@@ -8,7 +8,7 @@
 
 	 ################################ */
 
-(function() {
+var navigationModule = (function(navPanel, loader, docum, Mediator) {
 	var mediator = new Mediator();
 	var groups = navPanel.find('li');
 	setCurrentTab(getCurrTab(groups), groups);
@@ -22,14 +22,14 @@
 		tabs.removeClass('active');
 		tabNode.addClass('active');
 		var thisGroup = tabNode.find('a');
-		document.location = '#' + thisGroup.attr('href');
+		docum.location = '#' + thisGroup.attr('href');
 		loader.show();
 		getAjaxContent(thisGroup.attr('href'));
 	}
 
 	function getCurrTab(groups) {
 		var regExp = /\#\w+/g;
-		var location = document.location.href;
+		var location = docum.location.href;
 		var linkHref = location.match(regExp);
 		var currTab;
 
@@ -62,4 +62,4 @@
 		});
 	}
 
-})(navPanel, loader, document.location, Mediator);
+})(navPanel, loader, document, Mediator);
