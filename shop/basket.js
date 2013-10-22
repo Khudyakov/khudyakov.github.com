@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 /*   ################################
 
 	Модуль работы с корзиной (мини-инфо корзины и поп-ап):
@@ -48,7 +48,6 @@
 		sortHeaders.off('click');
 		sortHeaders.on('click', function() {
 			var self = $(this);
-			debugger
 			sortTable(self, data, self.attr('dataType'), basketTable, mediator);
 		});
 
