@@ -209,6 +209,10 @@ body {
 
 }
 
+.show {
+	display: block;
+}
+
 .popup_wrap:after{
 	display: inline-block;
 	height: 100%;

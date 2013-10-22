@@ -2,41 +2,17 @@
 /*   ################################
 
 	Модуль работы с корзиной (мини-инфо корзины и поп-ап):
-	1) Обсервер, раздающий данные на таблицу и инфо-окошки при изменении обьекта корзины
-	2) Навешивание обработчиков на поп-ап и мини-инфо корзины
-	3) Подписывание функций в медиаторе на события кнопок таблицы "купить" и "удалить", которые
+	1) Навешивание обработчиков на поп-ап и мини-инфо корзины
+	2) Подписывание функций в медиаторе на события кнопок таблицы "купить" и "удалить", которые
 		изменяют обьект корзины
-	4) Вспомогательные функции записи и чтения куки
+	3) Вспомогательные функции записи и чтения куки
 
 	 ################################ */
 (function() {
-	function Observer() {
-		this.subscribers = [];
-	}
 
-
-	Observer.prototype.subscribe = function(handler) {
-		this.subscribers.push(handler);
-	};
-
-
-	Observer.prototype.unsubscribe = function(handler) {
-		this.subscribers = this.subscribers.filter(function(subscriber) {
-			return subscriber !== handler;
-		});
-	};
-
-
-	Observer.prototype._trigger = function() {
-		var args = arguments;
-		this.subscribers.forEach(function(subscriber) {
-			subscriber.apply(undefined, args);
-		});
-	};
-
-	var observ = new Observer();
 	var mediator = new Mediator();
 	var basket = getBasketData();
+	var basketTable = popup.find('.goods');
 	var basketContent = popup.find('.goods tbody');
 	var basketHeader = popup.find('.goods thead th');
 	var sortHeaders = popup.find('.sort');
@@ -45,13 +21,13 @@
 	var clearButton = popup.find('.clear');
 
 	cartMini.on('click', function() {
-		popup.show();
+		popup.addClass('show');
 	});
 
 	popup.on('click', function(event) {
 		self = $(event.target);
 		if (self.hasClass('popup_wrap') || self.hasClass('close')) {
-			popup.hide();
+			popup.removeClass('show');
 		}
 	});
 
@@ -59,20 +35,21 @@
 		event.preventDefault();
 		basket = [];
 		setBasketData(basket);
-		observ._trigger(basket);
-		popup.hide();
+		mediator._publish('refreshData', basket);
+		popup.removeClass('show');
 	})
 
-	observ.subscribe(refreshCartTab);
-	observ.subscribe(refreshCartInfo);
-	observ._trigger(basket);
+	mediator.subscribe('refreshData',refreshCartTab);
+	mediator.subscribe('refreshData',refreshCartInfo);
+	mediator._publish('refreshData',basket);
 
 
 	function refreshCartTab(data) {
 		sortHeaders.off('click');
 		sortHeaders.on('click', function() {
 			var self = $(this);
-			sortTable(self, data, self.attr('dataType'), basketContent, mediator);
+			debugger
+			sortTable(self, data, self.attr('dataType'), basketTable, mediator);
 		});
 
 		generateContent(basketHeader, basketContent, data, mediator);
@@ -141,7 +118,7 @@
 		}
 
 		setBasketData(basket);
-		observ._trigger(basket);
+		mediator._publish('refreshData',basket);
 	});
 
 	mediator.subscribe('removeInBasket', function(dataObj) {
@@ -152,7 +129,7 @@
 			basket[position]["amount"] = parseInt(basket[position]["amount"]) - parseInt(dataObj["amount"]);
 		}
 		setBasketData(basket);
-		observ._trigger(basket);
+		mediator._publish('refreshData',basket);
 	});
 
-})(cartMini, popup, generateContent, sortTable, Mediator, document.cookie);
+})(cartMini, popup, generateContent, sortTable, Mediator);
