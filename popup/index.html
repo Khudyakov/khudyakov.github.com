@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+	<title>Popup</title>
+	<meta charset="utf-8">
+	<script src="jquery-1.10.2.min.js"></script>
+	<script src="popup.js"></script>
+	<link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+<body>
+	<p> Click the images</p>
+	<img src='1.jpg'/>
+	<img src='2.jpeg'/>
+	<img src='3.jpg'/>
+	<script>
+	$('img').eq(0).makePopup({animationFrom:'click'});
+	$('img').eq(1).makePopup({animationFrom:'click'});
+	$('img').eq(2).makePopup({animationFrom:'click'});
+	</script>
+	</body>
