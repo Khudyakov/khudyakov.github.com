@@ -1,6 +1,12 @@
+/*   #############################
+	Недостатки реализации:
+	1) При ресайзинге окна контент в попапе не сохраняет пропорции
+
+	 #############################  */
+
 'use strict';
 var popupPlagin = (function($) {
-
+	// создание класса обьекта кэша, содержащего узлы, вставляемые в попап и их свойства
 	var Sealer = (function() {
 		var objects = [];
 		var options = [];
@@ -21,6 +27,9 @@ var popupPlagin = (function($) {
 				option: options[index]
 			}
 		}
+		Sealer.prototype.setOption = function(index, option) {
+			options[index] = option;
+		}
 
 		Sealer.prototype.indexOf = function(object) {
 			if (objects.length === 0) {
@@ -40,9 +49,9 @@ var popupPlagin = (function($) {
 
 	var Popup = (function() {
 
-		function prepareContentSize(nodeObj, padding, realObj) {
+		function prepareContentSize(nodeObj, padding, options) {
 			var childrens = nodeObj.find('*');
-			if (nodeObj.width() > $(window).width()) {
+			if (options.maxWidth + padding * 2 > $(window).width()) {
 				nodeObj.width($(window).width() - padding * 2);
 				if (childrens.length !== 0) {
 					childrens.each(function() {
@@ -50,18 +59,18 @@ var popupPlagin = (function($) {
 					});
 				}
 			} else {
-				if (nodeObj.width() < realObj.width()) {
-					nodeObj.width(realObj.width());
+				if (nodeObj.width() < options.maxWidth) {
+					nodeObj.width(options.maxWidth);
 					if (childrens.length !== 0) {
 						childrens.each(function() {
-							$(this).width(realObj.width());
+							$(this).width(options.maxWidth);
 						})
 					}
 				}
 			}
 
 
-			if (nodeObj.height() > $(window).height()) {
+			if (options.maxHeight + padding * 2 > $(window).height()) {
 				nodeObj.height($(window).height() - padding * 2);
 				if (childrens.length !== 0) {
 					childrens.each(function() {
@@ -69,11 +78,11 @@ var popupPlagin = (function($) {
 					})
 				}
 			} else {
-				if (nodeObj.height() < realObj.height()) {
-					nodeObj.height(realObj.height());
+				if (nodeObj.height() < options.maxHeight) {
+					nodeObj.height(options.maxHeight);
 					if (childrens.length !== 0) {
 						childrens.each(function() {
-							$(this).height(realObj.height());
+							$(this).height(options.maxHeight);
 						})
 					}
 				}
@@ -93,6 +102,7 @@ var popupPlagin = (function($) {
 
 
 		var instance;
+		// Определение конструктора попапа-синглтона
 
 		function Popup(cashObj) {
 			if (instance) {
@@ -115,7 +125,7 @@ var popupPlagin = (function($) {
 			}
 
 		}
-
+		// создание разметки попапа и наполнение его узлами с установкой опций в кэше
 		Popup.prototype.createPopup = function() {
 
 			$('.__popup_wrap').remove();
@@ -133,26 +143,27 @@ var popupPlagin = (function($) {
 			for (var i = 0; i < self.cash.length; i += 1) {
 				var content = self.cash.get(i).object.clone();
 				content.addClass('__content');
-
+				var standartOptions = {
+					maxWidth: self.cash.get(i).object.width(),
+					maxHeight: self.cash.get(i).object.height(),
+					animationFrom: "center"
+				}
 
 				if (self.cash.get(i).option) {
+
+					self.cash.setOption(i, $.extend(standartOptions, self.cash.get(i).option));
+
 					var optionObj = self.cash.get(i).option;
-					if ("maxWidth" in optionObj) {
-						content.width(optionObj["maxWidth"]);
-					}
-					if ("maxHeight" in optionObj) {
-						content.height(optionObj["maxHeight"]);
-					}
-					if ("animationFrom" in optionObj) {
-						if (optionObj["animationFrom"] === "click") {
-							self.cash.get(i).object.click(function() {
+					if (optionObj["animationFrom"] === "click") {
+						self.cash.get(i).object.click(function() {
 							self.showContent(self.cash.indexOf($(this)));
-							});
-							self.animateFrom = "click";
-						}
+						});
 					}
+
+				} else {
+					self.cash.setOption(i, standartOptions);
 				}
-				
+
 				self.popupWindow.append(content);
 			}
 
@@ -160,14 +171,15 @@ var popupPlagin = (function($) {
 			self.addBehaviour();
 
 		}
-
+		// метод отображения контента в попапе по индексу
 		Popup.prototype.showContent = function(position) {
 			var self = this;
 			this.current = position;
-			this.popupWindow.find('.__info').text('№ ' + (position+1));
+			this.popupWindow.find('.__info').text('№ ' + (position + 1));
 			var popupPadding = parseInt(this.popupWindow.css('padding-top').replace(/px/g, ''));
 			var currContent = this.popupWrap.find('.__content').eq(position);
 			var realContent = this.cash.get(this.current).object;
+
 			this.popupWrap.find('.__content').hide();
 
 			if (!this.popupWrap.is(':visible')) {
@@ -176,8 +188,9 @@ var popupPlagin = (function($) {
 					opacity: 1.0
 				}, "slow", function() {
 					currContent.show();
+					prepareContentSize(currContent, popupPadding, self.cash.get(self.current).option);
 					self.popupWindow.css('visibility', 'visible');
-					if (self.animateFrom === "click") {
+					if (self.cash.get(position).option.animationFrom === "click") {
 						self.popupWindow.css({
 							'top': realContent.offset().top - $(window).scrollTop() + 'px',
 							'left': realContent.offset().left - $(window).scrollLeft() + 'px'
@@ -193,17 +206,17 @@ var popupPlagin = (function($) {
 				});
 			} else {
 				currContent.show();
+				prepareContentSize(currContent, popupPadding, self.cash.get(self.current).option);
 				this.popupWindow.css('top', positioningPopup(this.popupWindow, popupPadding).top + 'px');
 				this.popupWindow.css('left', positioningPopup(this.popupWindow, popupPadding).left + 'px');
 			}
-			prepareContentSize(currContent, popupPadding, realContent);
 
 		}
 
 		Popup.prototype.close = function() {
 			this.popupWrap.hide();
 		}
-
+		// добавление обработчиков на элементы попапа и на окно
 		Popup.prototype.addBehaviour = function() {
 			var self = this;
 			var popupPadding = parseInt(this.popupWindow.css('padding-top').replace(/px/g, ''));
@@ -234,9 +247,8 @@ var popupPlagin = (function($) {
 
 			$(window).resize(function() {
 				var currContent = self.popupWrap.find('.__content').eq(self.current);
-				var realContent = self.cash.get(self.current).object;
 
-				prepareContentSize(currContent, popupPadding, realContent);
+				prepareContentSize(currContent, popupPadding, self.cash.get(self.current).option);
 				self.popupWindow.css('top', positioningPopup(self.popupWindow, popupPadding).top + 'px');
 				self.popupWindow.css('left', positioningPopup(self.popupWindow, popupPadding).left + 'px');
 			});
