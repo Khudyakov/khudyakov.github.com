@@ -5,15 +5,13 @@ function addClass(node, className) {
 	if ((node) && (className)) {
 		var classArr = node.className.split(' ');
 
-		// className в случае если это строка, переводится к массиву
 		if (Object.prototype.toString.call(className) !== '[object Array]') {
 			className = className.split(' ');
 		}
-		//Отбираем классы, которых нет в className узла
+	
 		className = className.filter(function(iArr) {
 			return classArr.indexOf(iArr) === -1;
 		});
-		// добавляем отобранные ранее класы к массиву классов узла
 		className.forEach(function(iArr) {
 			classArr.push(iArr);
 		});
@@ -27,11 +25,9 @@ function addClass(node, className) {
 function removeClass(node, className) {
 	if ((node) && (className)) {
 		var classArr = node.className.split(' ');
-		// className в случае если это строка, переводится к массиву
 		if (Object.prototype.toString.call(className) !== '[object Array]') {
 			className = className.split(' ');
 		}
-		// отбираем из классов узла только те, которые не встречаются в аргументе className
 		classArr = classArr.filter(function(iArr) {
 			return className.indexOf(iArr) === -1;
 		});
@@ -43,11 +39,9 @@ function removeClass(node, className) {
 function hasClass(node, className) {
 	if ((node) && (className)) {
 		var classArr = node.className.split(' ');
-		// className в случае если это строка, переводится к массиву
 		if (Object.prototype.toString.call(className) !== '[object Array]') {
 			className = className.split(' ');
 		}
-		// если все классы в аргументе className есть в узле, то возвращаем true
 		return className.every(function(iarr) {
 			if (classArr.indexOf(iarr) > -1) {
 				return true;
@@ -109,6 +103,9 @@ var Gallery = (function() {
 		this.setTimer();
 		this.setCurrent();
 		var self = this;
+		var bigImageQ = document.createElement('img');
+		bigImageQ.src = this.imgs[1].querySelector('img').getAttribute('bigPic');
+		this.bigImageQ = bigImageQ;
 
 		var clicked = function(event) {
 			currentSlider = self;
@@ -136,8 +133,9 @@ var Gallery = (function() {
 
 		// Установка текущего слайдера при наведении
 		var mouseOvered = function(event) {
+			removeClass(currentSlider.domNodes,'curr');
 			currentSlider = self;
-
+			addClass(currentSlider.domNodes,'curr');
 		}
 
 		bind(this.domNodes, 'mouseenter', mouseOvered);
@@ -147,6 +145,7 @@ var Gallery = (function() {
 	Slider.prototype.setCurrent = function() {
 		if (currentSlider === undefined) {
 			currentSlider = this;
+			addClass(this.domNodes,'curr');
 		}
 
 	}
@@ -210,6 +209,9 @@ var Gallery = (function() {
 			removeClass(this.rightArrowNode, 'mark');
 		} else {
 			this.show(this.imgs[index + 1].querySelector('img'));
+			if (this.imgs[index+2]) {
+			this.bigImageQ.src = this.imgs[index+2].querySelector('img').getAttribute('bigPic');
+		}
 		}
 	}
 	// Метод переключения превью назад

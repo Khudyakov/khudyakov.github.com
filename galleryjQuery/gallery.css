@@ -50,7 +50,13 @@ table {
 	border:2px solid #CCC;
 	border-radius: 10px;
 	background: #eee;
+	opacity: 0.8;
 }
+
+.curr {
+	opacity: 1;
+}
+
 .gal:nth-of-type(2) {
 float:right;
 }
