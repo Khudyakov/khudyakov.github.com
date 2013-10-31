@@ -44,6 +44,38 @@
   }
   /* ---------------------*/
 
+body {
+
+}
+table {
+  border-top: 2px solid #DDDDDD;
+  border-bottom: 2px solid #DDDDDD;
+  margin: auto
+}
+
+table thead tr {
+  background: #DEDEDE;
+}
+
+table th {
+  padding: 5px;
+  color:#FFFFFF;
+  font-family: sans-serif;
+  border-left: 2px solid #DDDDDD;
+  border-right: 2px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  font-size: 16px;
+}
+
+table td {
+  padding: 10px;
+  border-left: 2px solid #DDDDDD;
+  border-right: 2px solid #DDDDDD;
+  font-size: 14px;
+}
+table tbody tr:nth-child(2n+1) {
+  background: #F8F8F8;
+}
   h1 {
     font-size: 1.5em;
     margin: 10px;
