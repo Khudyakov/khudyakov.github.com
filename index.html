@@ -8,10 +8,10 @@
 	<table>
 		<colgroup>
 				<col style="width:180px;">
-				<col style="width:200px;">
+				<col style="width:160px;">
 				<col style="width:80px;">
 				<col style="width:150px;">
-				<col style="width:600px;">
+				<col style="width:700px;">
 				</colgroup>
 		<thead>
 			<tr>
@@ -28,7 +28,13 @@
 				<td>jQuery, AJAX, patterns</td>
 				<td><a href="/shop/">Demo</a></td>
 				<td><a href="https://github.com/Khudyakov/khudyakov.github.com/tree/master/shop">Repo</a></td>
-				<td>Пример реализации простейшего магазина с применением модульной архитектуры построения приложения.</td>
+				<td>Пример реализации простейшего магазина с применением модульной архитектуры построения приложения. Главный модуль - shop.js
+					<ul>
+				<li>сортировка таблицы продуктов (по имени, цене)</li>
+<li>запоминание открытой вкладки через url</li>
+<li>удаление продуктов из корзины</li>
+<li>запоминание продуктов в корзине (после перезагрузки корзина не должна сбрасываться)</li>
+</ul></td>
 			</tr>
 			<tr>
 				<td>"Gallery"</td>
@@ -39,7 +45,16 @@
 			<li><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/galleryjQuery/gallery.css">CSS</a></li>
 			<li><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/galleryjQuery/gallery.js">javaScript</a></li>
 		</ul></td>
-				<td>Пример реализации галлереи, используещей в основе прототипное насследование</td>
+				<td>Пример реализации галлереи, используещей в основе прототипное насследование. 
+					<ul>
+				<li>Использовать разные изображения для превьюшек и большого изображения</li>
+<li>Автоматически листать на следующее изображение через 5 секунд</li>
+<li>Не листать галерею после того, как пользователь кликнул на одну из превьюшек</li>
+<li>Количество галерей на странице может быть любым</li>
+ <li>Количество изображений в галерее может быть любым</li>
+<li>Галерею можно листать с клавиатуры. Но только одну из всех галерей на странице. Листается та, с которой пользователь работал в последний раз. Или над которой находится мышка в данный момент.</li>
+<li>Должно работать в 8 ие.</li>
+</ul></td>
 			</tr>
 			<tr>
 				<td>"Context menu"</td>
@@ -49,7 +64,11 @@
 			<li><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/contextMenuProto/cmenu.css">CSS</a></li>
 			<li><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/contextMenuProto/contextMenu.js">javaScript</a></li>
 		</ul></td>
-				<td>Пример реализации контекстного меню</td>
+				<td>Пример реализации контекстного меню, создаваемого из данных формата JSON. (открытие меню по по правому клику мыши на области окна)
+					<ul>
+						<li>
+				Реализовать многоуровневое контекстное меню как в Windows. Открываться должно по правой кнопке в любой части страницы. </li>
+			</ul></td>
 			</tr>
 			<tr>
 				<td>"CSS Zen Garden"</td>
@@ -66,25 +85,30 @@
 				<td>AJAX</td>
 				<td>-</td>
 				<td><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/getProductListAJAX2Med.js">getProductListAjax</a></td>
-				<td>Сбор информации о товарных позициях выбранного раздела сайта rozetka.ua путем использования технологии AJAX</td>
+				<td>Сбор информации о товарных позициях выбранного раздела сайта rozetka.com.ua путем использования технологии AJAX
+					<ul>
+						<li>Получить данные о продуктах на розетке со всех страниц категории. Вывести в консоль объект со всеми данными.</li><ul></td>
 			</tr>
 			<tr>
 				<td>"ImagesTape"</td>
 				<td>AJAX</td>
 				<td>-</td>
 				<td><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/imagesTape.js">imagesTape</a></td>
-				<td>Работа на живом сайте с созданием "бесконечной" ленты из подргружаемого с помощью AJAX контента</td>
+				<td>Работа на живом сайте с созданием "бесконечной" ленты из подргружаемого с помощью AJAX контента
+					<ul><li>Сделать "бесконечную" ленту на http://www.explosm.net/comics/3305/ из комиксов. </li> <li>При прокручивании страницы ниже, должна подгружатся и вставляться картинка со следующей страницы.</li>
+ <li>Решение должно быть самодостаточным </li></ul></td>
 			</tr>
 			<tr>
 				<td>"habrjQuery"</td>
 				<td>AJAX</td>
 				<td>-</td>
 				<td><a href="//github.com/Khudyakov/khudyakov.github.com/blob/master/habrjQuery.js">habrjQuery</a></td>
-				<td>Редизайн главной страницы habrahabr.ru</td>
+				<td>Редизайн главной страницы habrahabr.ru
+					<ul><li>Код должен работать только на главной странице. Должен быть кроссбраузерным вплоть до 8 ие. Код должен корректно работать как до события DOMReady, так и после него. Для решения задач по максимуму использовать возможности библиотеки. Код должен быть самодостаточным (мы предполагаем, что этот код - единственное, что мы можем выполнить на странице)</li></ul></td>
 			</tr>
 		</tbody>
 	</table>
 	<h2>Skype: <a href="skype:yuroker90?chat">yuroker90</a></h2>
-	<h2>E-mail: <a href="yurokaz@mail.ru">yurokaz@mail.ru</a></h2>
+	<h2>E-mail: <a href="mailto:yurokaz@mail.ru">yurokaz@mail.ru</a></h2>
 </body>
 </html>

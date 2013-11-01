@@ -83,16 +83,25 @@ table tbody tr:nth-child(2n+1) {
   }
 
   ul {
-    margin-left: 30px
+    margin-left: 10px
   }
 
   li {
     list-style: circle;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     font-style: italic;
     font-weight: normal;
   }
 
   ul ul li {
     list-style:disc;
+  }
+
+  h2 {
+    margin-left: 30px;
+    font-weight: bold;
+  }
+
+  h2 a {
+    font-weight: normal;
   }
