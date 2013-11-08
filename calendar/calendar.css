@@ -1,0 +1,77 @@
+.calendar {
+	height: 515px;
+	position: relative;
+}
+
+.first {
+	position: absolute;
+	top:0;
+	cursor: pointer;
+	background: url(arrow_back.png) 0px 0px no-repeat transparent;
+	height: 14px;
+	width: 30px;
+}
+
+.back  {
+	position: absolute;
+	top:15px;
+	cursor: pointer;
+	background: url(arrow_back.png) 0px -19px no-repeat transparent;
+	height: 19px;
+	width: 30px;
+}
+
+.next {
+	position: absolute;
+	bottom:16px;
+	cursor: pointer;
+	background: url(arrow_next.png) 0px 3px no-repeat transparent;
+	height: 19px;
+	width: 30px;
+}
+
+.last {
+	position: absolute;
+	bottom:0;
+	cursor: pointer;
+	background: url(arrow_next.png) 0px -24px no-repeat transparent;
+	height: 14px;
+	width: 30px;
+}
+
+.days {
+	position: absolute;
+	top:34px;
+	left: 3px;
+	height: 435px;
+	overflow: hidden;
+}
+.areaDays {
+	display:inline-block;
+	height: 2000px;
+	padding: 0;
+	margin-top: 0;
+}
+.areaDays li {
+	color: #E1E1E1;
+	border: 1px solid transparent;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 4px;
+	min-width: 50px;
+	height: 25px;
+	border-radius: 0 0 13px 0;
+	display: block;
+	cursor: pointer;
+}
+
+.areaDays li:hover {
+	border: 1px solid #25C4EC;
+}
+.areaDays li span {
+	margin-left: 2px;
+}
+.current {
+	color: #FFFFFF;
+	background-color: #25C4EC;
+}
