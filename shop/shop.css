@@ -209,6 +209,11 @@ body {
 
 }
 
+.tablCont {
+overflow: auto;
+max-height: 450px;
+}
+
 .show {
 	display: block;
 }
