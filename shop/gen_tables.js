@@ -12,7 +12,7 @@ var getTablesModule = (function (goodsCont, Mediator, generateContent, sortTable
 	var header = goodsCont.find('thead th');
 	var sortHeaders = goodsCont.find('.sort');
 
-	mediator.subscribe('dataReady', function(data) {
+	var initTable = function(data) {
 		sortHeaders.off('click');
 		sortHeaders.on('click', function() {
 			var self = $(this);
@@ -21,6 +21,9 @@ var getTablesModule = (function (goodsCont, Mediator, generateContent, sortTable
 
 		generateContent(header, content, data, mediator);
 
-	});
+	}
+
+	mediator.subscribe('dataReady', initTable);
+	mediator.subscribe('filter',initTable);
 
 })(goodsCont, Mediator, generateContent, sortTable);

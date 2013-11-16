@@ -48,7 +48,6 @@ var basketModule = (function (cartMini, popup, generateContent, sortTable, Media
 		sortHeaders.off('click');
 		sortHeaders.on('click', function() {
 			var self = $(this);
-			debugger
 			sortTable(self, data, self.attr('dataType'), basketTable, mediator);
 		});
 

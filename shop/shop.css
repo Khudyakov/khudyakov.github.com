@@ -91,10 +91,13 @@ body {
 	margin-bottom: 10px;
 }
 
-.catalog {
+.left_column {
 	position: absolute;
 	top:90px;
 	left:0;
+}
+
+.catalog {
 	border-top:2px solid #DDDDDD;
 	border-right:2px solid #DDDDDD;
 	border-bottom:2px solid #DDDDDD;
@@ -124,6 +127,52 @@ body {
 
 .catalog li:hover {
 	background: #EEEEEE;
+}
+
+.slider {
+	margin-top: 20px;
+	border-top:2px solid #DDDDDD;
+	border-right:2px solid #DDDDDD;
+	border-bottom:2px solid #DDDDDD;
+	border-radius: 0 10px 10px 0;
+	padding: 10px;
+	color:#2A95D2;
+}
+
+.slider .sl_body {
+margin-top:15px;
+height: 4px;
+background: #B6B6B6;
+position: relative;
+}
+
+.slider .sl_info {
+	color:#B6B6B6;
+	margin-top: 5px;
+}
+
+.sl_body .mark1 {
+position: absolute;
+left:0;
+height: 10px;
+width: 10px;
+background: #DEDEDE;
+margin-top: -3px;
+cursor: pointer;
+}
+
+.sl_body .mark2 {
+position: absolute;
+left:200px;
+height: 10px;
+width: 10px;
+background: #DEDEDE;
+margin-top: -3px;
+cursor: pointer;
+}
+
+.marks:hover {
+	background: #B6B6B6;
 }
 .content {
 	position:relative;

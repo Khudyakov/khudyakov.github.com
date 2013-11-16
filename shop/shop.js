@@ -192,3 +192,4 @@ var loader = $('.loader');
 var goodsCont = $('.content .goods');
 var cartMini = $('.basket');
 var popup = $('.popup_wrap');
+var slider = $('.slider');
