@@ -18,7 +18,7 @@ var initSlider = (function(slider, Mediator) {
 		info.text('$' + option.min + ' - $' + option.max);
 	});
 
-	mediator.subscribe('dataReady', function(data) {
+	var initFilter = function(data) {
 		var price = [];
 		var option = {};
 		dataObj = data;
@@ -34,7 +34,10 @@ var initSlider = (function(slider, Mediator) {
 		option.min = price[0];
 		mediator._publish('onSlide', option);
 		var sl = new Slider(slBody, option);
-	});
+	}
+
+	mediator.subscribe('dataReady', initFilter);
+	mediator.subscribe('onFirmFilter',initFilter);
 
 	var Slider = (function(mediator) {
 

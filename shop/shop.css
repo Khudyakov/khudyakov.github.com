@@ -129,7 +129,7 @@ body {
 	background: #EEEEEE;
 }
 
-.slider {
+.slider, .firmFilter {
 	margin-top: 20px;
 	border-top:2px solid #DDDDDD;
 	border-right:2px solid #DDDDDD;
@@ -138,7 +138,10 @@ body {
 	padding: 10px;
 	color:#2A95D2;
 }
-
+.ff_body {
+	margin-top: 10px;
+	color: #B6B6B6;
+}
 .slider .sl_body {
 margin-top:15px;
 height: 4px;
